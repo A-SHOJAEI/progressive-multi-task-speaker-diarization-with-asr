@@ -1,0 +1,57 @@
+# Ablation study configuration: Baseline without cross-task attention
+
+# Model configuration - WITHOUT cross-task attention
+model:
+  input_dim: 80
+  hidden_dim: 256
+  num_speakers: 4
+  vocab_size: 29
+  num_encoder_layers: 3
+  num_attention_heads: 8
+  dropout: 0.1
+  use_cross_attention: false  # Ablation: disable cross-task attention
+
+# Training configuration
+training:
+  batch_size: 16
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  max_epochs: 100
+  patience: 15
+  gradient_clip: 5.0
+  use_amp: true
+  use_curriculum: false  # Ablation: disable curriculum learning
+  num_workers: 4
+
+# Data configuration
+data:
+  sample_rate: 16000
+  n_fft: 400
+  n_mels: 80
+  hop_length: 160
+  max_duration: 10.0
+  augment_train: true
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+
+# Curriculum configuration (not used in this ablation)
+curriculum:
+  stages:
+    - full  # Only full multi-speaker (no curriculum)
+
+# Paths
+paths:
+  data_dir: data
+  checkpoint_dir: checkpoints_ablation
+  results_dir: results_ablation
+  models_dir: models_ablation
+
+# Loss configuration
+loss:
+  use_dynamic_weighting: false  # Ablation: fixed weights
+  initial_diar_weight: 1.0
+  initial_asr_weight: 1.0
+
+# Random seed for reproducibility
+seed: 42

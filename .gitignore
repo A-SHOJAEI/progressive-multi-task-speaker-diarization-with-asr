@@ -1,0 +1,33 @@
+# Checkpoints and model weights
+checkpoints/
+checkpoints_ablation/
+models/
+models_ablation/
+*.pt
+*.pth
+*.pkl
+*.bin
+*.safetensors
+
+# Python
+__pycache__/
+*.pyc
+.eggs/
+*.egg-info/
+dist/
+build/
+
+# Experiment tracking
+wandb/
+mlruns/
+mlflow.db
+
+# Environment
+.env
+
+# Data
+data/
+
+# Coverage
+htmlcov/
+.coverage

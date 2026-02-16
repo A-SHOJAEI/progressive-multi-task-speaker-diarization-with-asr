@@ -1,0 +1,59 @@
+# Default configuration for progressive multi-task speaker diarization with ASR
+
+# Model configuration
+model:
+  input_dim: 80  # Mel filterbanks
+  hidden_dim: 256
+  num_speakers: 4  # Maximum number of speakers
+  vocab_size: 29  # 26 letters + blank + space + apostrophe
+  num_encoder_layers: 3
+  num_attention_heads: 8
+  dropout: 0.1
+  use_cross_attention: true  # Novel cross-task attention
+
+# Training configuration
+training:
+  batch_size: 16
+  learning_rate: 0.001
+  weight_decay: 0.0001
+  max_epochs: 100
+  patience: 15
+  gradient_clip: 5.0
+  use_amp: true
+  use_curriculum: true  # Progressive curriculum learning
+  num_workers: 4
+
+# Data configuration
+data:
+  sample_rate: 16000
+  n_fft: 400
+  n_mels: 80
+  hop_length: 160
+  max_duration: 10.0
+  augment_train: true
+  train_split: 0.8
+  val_split: 0.1
+  test_split: 0.1
+
+# Curriculum configuration
+curriculum:
+  stages:
+    - single  # Single-speaker ASR
+    - overlap  # Overlapping speech
+    - full  # Full multi-speaker diarization
+
+# Paths
+paths:
+  data_dir: data
+  checkpoint_dir: checkpoints
+  results_dir: results
+  models_dir: models
+
+# Loss configuration
+loss:
+  use_dynamic_weighting: true
+  initial_diar_weight: 1.0
+  initial_asr_weight: 1.0
+
+# Random seed for reproducibility
+seed: 42
