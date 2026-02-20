@@ -1,0 +1,33 @@
+{
+  "experiment": "progressive-multi-task-speaker-diarization-with-asr",
+  "status": "completed",
+  "training": {
+    "total_epochs": 16,
+    "best_epoch": 0,
+    "best_val_loss": 1.5812,
+    "final_train_loss": 1.6017,
+    "final_val_loss": 1.6326,
+    "initial_train_loss": 1.7469,
+    "initial_val_loss": 1.5812,
+    "learning_rate_initial": 0.001,
+    "scheduler": "cosine",
+    "max_epochs_configured": 100
+  },
+  "model": {
+    "architecture": "ProgressiveMultiTaskDiarizationASR",
+    "hidden_dim": 256,
+    "use_cross_attention": true,
+    "use_curriculum": true
+  },
+  "training_history": {
+    "train_loss": [1.7469, 1.6338, 1.6245, 1.6202, 1.6123, 1.6097, 1.6059, 1.6032, 1.6082, 1.6123, 1.5984, 1.5960, 1.6186, 1.6073, 1.6030, 1.6017],
+    "val_loss": [1.5812, 1.6025, 1.6354, 1.6765, 1.6282, 1.6222, 1.6654, 1.6669, 1.6591, 1.5924, 1.6043, 1.6493, 1.6354, 1.6098, 1.6124, 1.6326]
+  },
+  "convergence_analysis": {
+    "train_loss_reduction": "8.3% (1.7469 to 1.6017)",
+    "best_val_at_epoch_0": true,
+    "val_loss_oscillating": true,
+    "note": "Validation loss oscillated throughout training and never improved below the initial epoch 0 value of 1.5812. Training loss showed moderate reduction from 1.7469 to 1.6017."
+  },
+  "notes": "Training completed 16 epochs with progressive curriculum learning on synthetic data. The model showed training loss reduction but validation loss did not consistently improve, suggesting the synthetic data was challenging for the multi-task objective. Best checkpoint saved at epoch 0 with val_loss=1.5812."
+}

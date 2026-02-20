@@ -126,24 +126,34 @@ Key hyperparameters in `configs/default.yaml`:
 
 ## Results
 
-Run `python scripts/train.py` to reproduce results. The model outputs:
+Training completed over 16 epochs with progressive curriculum learning on synthetic data.
 
-- Diarization Error Rate (DER)
-- Word Error Rate (WER)
-- Per-speaker precision, recall, and F1 scores
-- Training curves and confusion matrices
+### Training Metrics
 
-### Example Output
+| Metric | Value |
+|--------|-------|
+| Total Epochs | 16 |
+| Best Validation Loss | 1.5812 (epoch 0) |
+| Final Training Loss | 1.6017 |
+| Final Validation Loss | 1.6326 |
+| Training Loss Reduction | 8.3% (1.7469 to 1.6017) |
+| Scheduler | Cosine Annealing |
 
-```
-Diarization Metrics:
-  accuracy                      : 0.8523
-  diarization_error_rate        : 0.1477
-  f1_score                      : 0.8245
+### Training Progression
 
-ASR Metrics:
-  word_error_rate               : 0.1856
-  accuracy                      : 0.8144
+| Epoch | Train Loss | Val Loss |
+|------:|----------:|---------:|
+| 0 | 1.7469 | 1.5812 |
+| 5 | 1.6097 | 1.6222 |
+| 9 | 1.6123 | 1.5924 |
+| 11 | 1.5960 | 1.6493 |
+| 15 | 1.6017 | 1.6326 |
+
+> **Note**: Training was conducted on synthetic data. The model showed moderate training loss reduction but validation loss oscillated and did not consistently improve below the epoch 0 baseline. The multi-task learning pipeline (cross-task attention, curriculum scheduling, dynamic loss weighting) is fully functional. Training with real multi-speaker audio data (e.g., AMI, LibriCSS) would yield meaningful DER and WER metrics.
+
+To reproduce results:
+```bash
+python scripts/train.py --config configs/default.yaml
 ```
 
 ## Testing
